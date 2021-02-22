@@ -5,50 +5,50 @@ User class
 #include <iostream>
 
 class Account{
-  std::string username; //Username for user login
-  int userID; //User ID for user login
-  int userType; //Type of user (standard = 0, admin = 1)
-  float money; //amount of money in the users account
+  std::string accountName; //accountName for user login
+  std::string accountID; //account ID for user login
+  int accountType; //Type of account (standard = 0, admin = 1)
+  float money; //value in the users account
 
 public:
   //default constructor
   User(){
-    this->username = "";
-    this->userID = 0;
-    this->userType = 0;
-    this->money = 0;
+    this->accountName = "";
+    this->accountID = "";
+    this->accountType = 0;
+    this->money = 0.00;
   }
 
   //constructor
-  User(std::string username, int userID, int userType, float money){
-    this->username = username;
-    this->userID = userID;
-    this->userType = userType;
+  User(std::string accountName, std::string accountID, int accountType, float money){
+    this->accountName = accountName;
+    this->accountID = accountID;
+    this->accountType = accountType;
     this->money = money;
   }
 
   std::string getUsername(){
-    return this->username;
+    return this->accountName;
   }
 
-  void setUsername(std::string username){
-    this->username = username;
+  void setUsername(std::string accountName){
+    this->accountName = accountName;
   }
 
-  int getUserID(){
-    return this->userID;
+  std::string getUserID(){
+    return this->accountID;
   }
 
-  void setUserID(int userID){
-    this->userID = userID;
+  void setUserID(std::string accountID){
+    this->accountID = accountID;
   }
 
-  int getUserType(){
-    return this->userType;
+  int getAccountType(){
+    return this->accountType;
   }
 
-  void setUserID(int userID){
-    this->userType = userType;
+  void setAccountType(int accountType){
+    this->accountType = accountType;
   }
 
   float getMoney(){
