@@ -1,7 +1,6 @@
 /*
 User class
 */
-
 #include <iostream>
 
 class Account{

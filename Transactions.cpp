@@ -1,4 +1,5 @@
 #include <iostream>
+#include FileIO.cpp
 
 class Transaction{
 
@@ -12,11 +13,15 @@ public:
     return false;
   }
 
-  void withdrawl(Account acc){
+  void withdrawl(Account acc, float withdrawAmount){
     if(acc.accountExists(acc.accountHolderName, acc.accountId)){
-      if(acc.withdrawAmount > 0.0 && acc.withdrawAmount <= 500.0){
-        //TODO:
-        //stuff here
+      if(withdrawAmount > 0.0 && withdrawAmount <= 500.0){
+        if(acc.money - withdrawAmount >= 0.0){
+
+        }
+        else{
+          std::cout<<"You do not have enough funds" << std::endl;
+        }
       }
     }
   }
