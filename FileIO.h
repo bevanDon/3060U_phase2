@@ -15,10 +15,17 @@ class FileIO {
     std::string availableItems;     //available items file
 
 public:
+     // methods for banking transactions
     FileIO();     
-    void login(std::string accountNumber, std::string accountID);
-    void withdrawal(std::string accountHoldername,std::string accountID,  )
-
+    void login(std::string accountNumber, std::string accountId);
+    void withdrawal(std::string accountHolderName,std::string accountId,float withdrawAmount);
+    void deposit(std::string accountHolderName,std::string accountId,float depositAmount);
+    void transfer(std::string accountHolderName,std::string accountId,std::string recieverId,float transferAmount);
+    void paybill(std::string accountHolderName,std::string accountId,float amountToPay);
+    void create(std::string accountHolderName,float intialBalance);
+    void deleting(std::string accountHolderName,std::string accountId);
+    void disable(std::string accountHolderName,std::string accountId);
+    void changeplan(std::string accountHolderName,std::string accountId);
     /*                                                  //Default empty constructor for fileIO, defines text files
     void setIteration(std::string iteration);
     void setUserData(std::string currentUsers);
