@@ -9,7 +9,7 @@ public:
   FileIO fileIO;
 
   bool login(Account acc){
-    if(acc.accountExists(acc.accountNumber, acc.accountId)){
+    if(fileIO.accountExists(acc.accountNumber, acc.accountId)){
       return true;
     }
     return false;
