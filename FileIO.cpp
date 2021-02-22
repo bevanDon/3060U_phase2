@@ -8,12 +8,12 @@ Account acc;
 std::string accountsFile;           //current user account file
 char[100] data = {0};
 
-FileIO::FileIO(Account acc) {
-  this->acc = acc;
-	accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
-}
 
-bool FileIO::userExists(){
+
+
+bool FileIO::accountExists(Account acc){
+  this->acc = acc;
+  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
   std::ifstream inFile;
   inFile.open(accountsFile);
   inFile>>data;
@@ -27,6 +27,8 @@ bool FileIO::userExists(){
 }
 
 void FileIO::updateMoney(float money){
+  this->acc = acc;
+  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
   std::ofstream outFile;
   int lineNum = 0;
   while (file >> username >> money >> type) {

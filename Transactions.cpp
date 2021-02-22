@@ -1,11 +1,12 @@
 #include <iostream>
-#include "FileIO.cpp"
+#include "fileIO.cpp"
 #include "account.cpp"
 
 class Transaction{
 
 public:
   Transaction();
+  FileIO fileIO;
 
   bool login(Account acc){
     if(acc.accountExists(acc.accountNumber, acc.accountId)){
@@ -15,11 +16,11 @@ public:
   }
 
   void withdrawl(Account acc, float withdrawAmount){
-    if(FileIO.accountExists(acc)){
+    if(fileIO.accountExists(acc)){
       if(withdrawAmount > 0.0 && withdrawAmount <= 500.0){
         if(acc.money - withdrawAmount >= 0.0){
           acc.subMoney(withdrawAmount);
-          FileIO.updateMoney(acc.money);
+          fileIO.updateMoney(acc, acc.money);
         }
         else{
           std::cout<<"You do not have enough funds" << std::endl;
@@ -34,17 +35,28 @@ public:
     }
   }
 
-  void deposit(Account acc){
-    if(acc.accountExists(acc.accountHolderName,acc.accountId)){
-      //funds transfers cannot be used in session
+  void deposit(Account acc, float depositAmount){
+    if(fileIO.accountExists(acc)){
+      if(depositAmount > 0.0){
+        acc.addMoney(depositAmount);
+        fileIO.updateMoney(acc, acc.money);
+      }
+      else{
+        std::cout<<"Deposit value is invalid" << std::endl;
+      }
+    }
+    else{
+      std::cout <<"Account does not exist" << std::endl;
     }
   }
 
-  void transfer(Account acc){
-    if(acc.accountExists(acc.accountHolderName,acc.accountId)){
-      //funds transfers cannot be used in session
-      if(acc.transferAmount > 0 && acc.transferAmount < 1000){
-        //modify account amounts
+  void transfer(Account accSend, Account accReceive, float transferAmount){
+    if(fileIO.accountExists(accSend) && fileIO.accountExists(accReceive)){
+      if(accSend.money > transferAmount){
+        accSend.subMoney(transferAmount);
+        accReceive.addMoney(transferAmount);
+        fileIO.updateMoney(accSend, accSend.money);
+        fileIO.updateMoney(accReceive, accReceive.money);
       }
     }
   }
