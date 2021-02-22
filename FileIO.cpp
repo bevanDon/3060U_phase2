@@ -14,13 +14,33 @@ FileIO::FileIO(Account acc) {
 }
 
 bool FileIO::userExists(){
-  std::ifstream inputFile;
-  inputFile.open(accountsFile);
-  inputFile>>data;
-  if(inputFile.is_open() && data[0] != 0){
-    return true;
-  }
-  else{
-    return false;
-  }
+  std::ifstream inFile;
+  inFile.open(accountsFile);
+  inFile>>data;
+  while (file >> username >> money >> type) {
+		if (username == name) {
+			file.close();
+			return true;
+		}
+	}
+  return false;
+}
+
+void FileIO::updateMoney(float money){
+  std::ofstream outFile;
+  int lineNum = 0;
+  while (file >> username >> money >> type) {
+		if (username == acc.accountName) {
+      //Reads in userdata file to match username and find credit to update
+      while (outFile >> username >> money >> type) {
+        if (username == acc.accountName) {
+          outFile << username << " " << money << " " << type << "\n";
+        }
+        else {
+          outFile << username << " " << money << " " << type << "\n";
+        }
+      }
+			outFile.close();
+		}
+	}
 }

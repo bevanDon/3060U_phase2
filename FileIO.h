@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "Account.cpp"
+#include "account.cpp"
 
 class FileIO {
   Account acc;
