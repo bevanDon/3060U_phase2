@@ -8,6 +8,8 @@ class Account{
   std::string accountID; //account ID for user login
   int accountType; //Type of account (standard = 0, admin = 1)
   float money; //value in the users account
+  int isActive; //0 = active, 1 = inactive
+  int planType; //0 = student, 1 = regular
 
 public:
   //default constructor
@@ -16,6 +18,8 @@ public:
     this->accountID = "";
     this->accountType = 0;
     this->money = 0.00;
+    this->isActive = 0;
+    this->planType = 0;
   }
 
   //constructor
@@ -59,7 +63,24 @@ public:
   }
 
   void subMoney(float money){
-    this-> = this->money - money;
+    this->money = this->money - money;
+  }
+
+  int getStatus(){
+      return this->isActive;
+  }
+
+  void updateStatus(int newStatus){
+    this->isActive = newStatus;
+  }
+
+
+  int getPlanType(){
+    return this->planType;
+  }
+
+  void updatePlanType(int newPlanType){
+    this->planType = newStatus;
   }
 
 };

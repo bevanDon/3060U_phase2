@@ -27,16 +27,15 @@ void FileIO::updateMoney(Account acc, float money){
   this->acc = acc;
   accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
   std::ofstream outFile;
-  int lineNum = 0;
   while (file >> username >> money >> type) {
 		if (username == acc.accountName) {
       //Reads in userdata file to match username and find credit to update
       while (outFile >> username >> money >> type) {
         if (username == acc.accountName) {
-          outFile << username << " " << money << " " << type << "\n";
+        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << money << " " << acc.isActive << " " << acc.planType;
         }
-        else {
-          outFile << username << " " << money << " " << type << "\n";
+        else
+        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << acc.isActive << " " << acc.planType;
         }
       }
 			outFile.close();
@@ -51,7 +50,7 @@ void FileIO::createAccount(std::string accountName, std::string acountID, float 
   std::ofstream outFile;
   outFile.open(data, std::ios::app);
   if !(accountExists(temp)) {
-  	outFile << accountName << " " << acountID << " " << "0" << " " << money;
+    outFile << acc.accountName << " " << acc.acountID << " " << 0 << " " << acc.money << " " << 0 << " " << 0;;
   }
 }
 
@@ -62,4 +61,43 @@ void FileIO::deleteAccount(Account acc){
     std::cout <<"User deleted" <<std::endl;
   else
     std::cout <<"Delete unsuccessful" <<std::endl;
+}
+
+void FileIO::disableAccount(Account acc){
+  this->acc = acc;
+  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  std::ofstream outFile;
+  while (file >> username >> money >> type) {
+    if (username == acc.accountName) {
+      while (outFile >> username >> money >> type) {
+        if (username == acc.accountName) {
+        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << 1 << " " << acc.planType;
+        }
+        else {
+        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << 0 << " " << acc.planType;
+        }
+      }
+      outFile.close();
+    }
+  }
+}
+
+
+void FileIO::changePlan(Account acc){
+  this->acc = acc;
+  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  std::ofstream outFile;
+  while (file >> username >> money >> type) {
+    if (username == acc.accountName) {
+      while (outFile >> username >> money >> type) {
+        if (username == acc.accountName) {
+        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << acc.isActive << " " << 1;
+        }
+        else {
+        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << acc.isActive << " " << 0;
+        }
+      }
+      outFile.close();
+    }
+  }
 }

@@ -9,7 +9,7 @@ public:
   FileIO fileIO;
 
   bool login(Account acc){
-    if(fileIO.accountExists(acc.accountNumber, acc.accountId)){
+    if(fileIO.accountExists(acc.accountNumber, acc.accountID)){
       return true;
     }
     return false;
@@ -84,18 +84,18 @@ public:
   void deleting(Account acc, Account deleteAccount){
     if(acc.accountType == 1){
       if(fileIO.accountExists(deleteAccount)){
-        if(acc.accountId == deleteAccount.deleteUserID){
+        if(acc.accountID == deleteAccount.deleteUserID){
           fileIO.deleteAccount(deleteAccount);
         }
       }
     }
   }
 
-  void disable(Account acc){
-    if(acc.accountExists(acc.accountHolderName,acc.accountId){
-      if(acc.isAdmin == true){
-        if( acc.accountId == acc.verifyDisable ){
-          //fileIO
+  void disable(Account acc, Account disableAccount){
+    if(fileIO.accountExists(disableAccount){
+      if(acc.accountType == 1){
+        if(acc.accountID == disableAccount.accountID ){
+          fileIO.disableAccount(disableAccount);
         }
       }
     }
@@ -103,9 +103,9 @@ public:
 
   void changeplan(Account acc){
     if(acc.accountExists(acc.accountHolderName,acc.accountId){
-      if(acc.isAdmin == true)){
-        if(acc.studentPlan == true){
-          //output as studentplan
+      if(acc.accountType == 1)){
+        if(acc.planType == 0){
+          fileIO.changePlan(acc);
         }
       }
     }
