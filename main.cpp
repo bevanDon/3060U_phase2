@@ -5,22 +5,24 @@
 
 
 
-
+/*
+Main is used to run the bank terminal using command prompt
+User data is read in using FileIO and the data is saved using the Account class
+Transactions hold the methods for banking actions
+saved userdata into output files
+*/
 int main(int argc, char** argv) {
 	Account accounts;
 	std::string userInput;
-	
-	
-	
-
 	std::cout << "Welcome to WEF bank !\n";
 
-	
+	// Creates terminal for banking system 
+    // exits on user input "exit" or quit
 	while (userInput != "exit" || userInput != "quit") {
 		std::cout << "What will you be doing today?\n"; 
 		std::cin >> userInput;
 
-		
+		// user is allowed to access transaction methods if they are succesfully logged in
 		if (userInput == "login") {
 			if (accounts.login()) {
 				while (true) {
@@ -31,12 +33,12 @@ int main(int argc, char** argv) {
 					if (userInput == "exit" || userInput == "quit") {
 						break;
 					}
-					else if (userInput == "login") { 
-						std::string tempuser;
-						std::cin >> tempuser;
+					else if (userInput == "login") {  // login into users account and grants access to transactions methods
+						std::string tempUser;
+						std::cin >> tempUser;
 						std::cout << "Login Error: Already logged in\n";
 					}
-					else if (userInput == "withdraw") { 
+					else if (userInput == "withdraw") {  
 						accounts.logout();
 						break;
 					}
