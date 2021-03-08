@@ -6,7 +6,7 @@
 class FileIO {
   Account acc;
   std::string accountsFile;           //current user account file
-  char[100] data;
+  char data[];
 
 public:
      // methods for banking transactions

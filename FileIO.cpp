@@ -2,20 +2,21 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Transactions.cpp"
 
-Account acc;
-std::string accountsFile;           //current user account file
-char[100] data = {0};
+// Account acc;
+char* accountsFile;           //current user account file
+char data[] = {0};
 
+// checks to see if the account given exists
 bool FileIO::accountExists(Account acc){
-  this->acc = acc;
-  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  accountsFile = "../../userData" + acc.getUserID() + ".txt";	//userData - name of current user accounts
   std::ifstream inFile;
   inFile.open(accountsFile);
   inFile>>data;
+
+  // searches through all accounts
   while (file >> username >> money >> type) {
-		if (username == name) {
+		if (username == acc.getUsername()) {
 			file.close();
 			return true;
 		}
@@ -23,19 +24,19 @@ bool FileIO::accountExists(Account acc){
   return false;
 }
 
+// updates the money in an account
 void FileIO::updateMoney(Account acc, float money){
-  this->acc = acc;
-  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  accountsFile = "../../userData" + acc.getUserID() + ".txt";	//userData - name of current user accounts
   std::ofstream outFile;
   while (file >> username >> money >> type) {
-		if (username == acc.accountName) {
+		if (username == acc.getUsername()) {
       //Reads in userdata file to match username and find credit to update
       while (outFile >> username >> money >> type) {
-        if (username == acc.accountName) {
-        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << money << " " << acc.isActive << " " << acc.planType;
+        if (username == acc.getUsername()) {
+        	outFile << acc.getUsername() << " " << acc.getUserID() << " " << acc.getAccountType() << " " << money << " " << acc.getStatus() << " " << acc.getPlanType();
         }
-        else
-        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << acc.isActive << " " << acc.planType;
+        else {
+        	outFile << acc.getUsername() << " " << acc.getUserID() << " " << acc.getAccountType() << " " << acc.getMoney() << " " << acc.getStatus() << " " << acc.getPlanType();
         }
       }
 			outFile.close();
@@ -43,38 +44,41 @@ void FileIO::updateMoney(Account acc, float money){
 	}
 }
 
-void FileIO::createAccount(std::string accountName, std::string acountID, float money){
-  accountsFile = "../../userData" + this->acc.accountID + ".txt";
-  Account temp = new Account(accountName, accountId, accountType, money);
+// creates an account
+void FileIO::createAccount(std::string accountName, std::string accountID, float money){
+  accountsFile = "../../userData" + acc.getUserID() + ".txt";
+  Account temp = new Account(accountName, accountID, accountType, money);
 
   std::ofstream outFile;
   outFile.open(data, std::ios::app);
-  if !(accountExists(temp)) {
-    outFile << acc.accountName << " " << acc.acountID << " " << 0 << " " << acc.money << " " << 0 << " " << 0;;
+  if (!accountExists(temp)) {
+    outFile << acc.getUsername() << " " << acc.getUserID() << " " << 0 << " " << acc.getMoney() << " " << 0 << " " << 0;;
   }
 }
 
+// deletes an account
 void FileIO::deleteAccount(Account acc){
   this->acc = acc;
-  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  accountsFile = "../../userData" + acc.getUserID() + ".txt";	//userData - name of current user accounts
   if(remove(accountsFile) != 0 )
     std::cout <<"User deleted" <<std::endl;
   else
     std::cout <<"Delete unsuccessful" <<std::endl;
 }
 
+// disables an account
 void FileIO::disableAccount(Account acc){
   this->acc = acc;
-  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  accountsFile = "../../userData" + acc.getUserID() + ".txt";	//userData - name of current user accounts
   std::ofstream outFile;
   while (file >> username >> money >> type) {
-    if (username == acc.accountName) {
+    if (username == acc.getUsername()) {
       while (outFile >> username >> money >> type) {
-        if (username == acc.accountName) {
-        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << 1 << " " << acc.planType;
+        if (username == acc.getUsername()) {
+        	outFile << acc.getUsername() << " " << acc.getUserID() << " " << acc.getAccountType() << " " << acc.getMoney() << " " << 1 << " " << acc.getPlanType();
         }
         else {
-        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << 0 << " " << acc.planType;
+        	outFile << acc.getUsername() << " " << acc.getUserID() << " " << acc.getAccountType() << " " << acc.getMoney() << " " << 0 << " " << acc.getPlanType();
         }
       }
       outFile.close();
@@ -82,19 +86,19 @@ void FileIO::disableAccount(Account acc){
   }
 }
 
-
+// changes the plan on an account
 void FileIO::changePlan(Account acc){
   this->acc = acc;
-  accountsFile = "../../userData" + this->acc.accountID + ".txt";	//userData - name of current user accounts
+  accountsFile = "../../userData" + acc.getUserID() + ".txt";	//userData - name of current user accounts
   std::ofstream outFile;
   while (file >> username >> money >> type) {
-    if (username == acc.accountName) {
+    if (username == acc.getUsername()) {
       while (outFile >> username >> money >> type) {
-        if (username == acc.accountName) {
-        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << acc.isActive << " " << 1;
+        if (username == acc.getUsername()) {
+        	outFile << acc.getUsername() << " " << acc.getUserID() << " " << acc.getAccountType() << " " << acc.getMoney() << " " << acc.getStatus() << " " << 1;
         }
         else {
-        	outFile << acc.accountName << " " << acc.acountID << " " << acc.accountType << " " << acc.money << " " << acc.isActive << " " << 0;
+        	outFile << acc.getUsername() << " " << acc.getUserID() << " " << acc.getAccountType() << " " << acc.getMoney() << " " << acc.getStatus() << " " << 0;
         }
       }
       outFile.close();

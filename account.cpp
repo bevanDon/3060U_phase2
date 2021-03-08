@@ -13,7 +13,7 @@ class Account{
 
 public:
   //default constructor
-  User(){
+  Account(){
     this->accountName = "";
     this->accountID = "";
     this->accountType = 0;
@@ -23,7 +23,7 @@ public:
   }
 
   //constructor
-  User(std::string accountName, std::string accountID, int accountType, float money){
+  Account(std::string accountName, std::string accountID, int accountType, float money){
     this->accountName = accountName;
     this->accountID = accountID;
     this->accountType = accountType;
@@ -74,13 +74,12 @@ public:
     this->isActive = newStatus;
   }
 
-
   int getPlanType(){
     return this->planType;
   }
 
   void updatePlanType(int newPlanType){
-    this->planType = newStatus;
+    this->planType = newPlanType;
   }
 
 };
